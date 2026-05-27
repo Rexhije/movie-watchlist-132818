@@ -53,6 +53,18 @@ function MoviesPage() {
         setMessage('')
     }
 
+    const toggleWatched = (id) => {
+        setMovieList(prevMovies =>
+            prevMovies.map(movie =>
+                movie.id === id ? { ...movie, watched: !movie.watched } : movie
+            )
+        )
+    }
+
+    const deleteMovie = (id) => {
+        setMovieList(prevMovies => prevMovies.filter(movie => movie.id !== id))
+    }
+
     return (
         <div className="p-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-6">Movies</h1>
@@ -109,6 +121,22 @@ function MoviesPage() {
                         <p>Director: {movie.director}</p>
                         <p>Genre: {movie.genre}</p>
                         <p>Watched: {movie.watched ? 'Yes' : 'No'}</p>
+
+                        <div className="flex gap-3 mt-3">
+                            <button
+                                onClick={() => toggleWatched(movie.id)}
+                                className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
+                            >
+                                Toggle Watched
+                            </button>
+
+                            <button
+                                onClick={() => deleteMovie(movie.id)}
+                                className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                            >
+                                Delete
+                            </button>
+                        </div>
                     </div>
                 ))}
             </div>
